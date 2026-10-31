@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: campus-connect
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn --bind 0.0.0.0:$PORT --workers 2 --timeout 120 app:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11.11"
+      - key: FLASK_ENV
+        value: production
+      - key: DATABASE_BACKEND
+        value: firebase
+      - key: FIREBASE_DATABASE_URL
+        value: https://campus-mini2-default-rtdb.firebaseio.com/
+      - key: FIREBASE_SERVICE_ACCOUNT_KEY
+        sync: false
+      - key: SECRET_KEY
+        generateValue: true
+      - key: BREVO_API_KEY
+        sync: false
+      - key: BREVO_SENDER_EMAIL
+        sync: false
+      - key: BREVO_SENDER_NAME
+        value: Campus Connect ERP
+      - key: ERP_LOGIN_URL
+        sync: false
+
